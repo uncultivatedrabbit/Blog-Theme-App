@@ -1,38 +1,101 @@
-.App {
-  text-align: center;
+/* ------------------
+   Global Styling 
+-------------------*/
+@import url("https://fonts.googleapis.com/css?family=Karla|Rubik&display=swap");
+
+:root {
+  --main-dark: #0f0f0f;
+  --main-light: #dcdde1;
+  --main-blue: #005583;
+  --main-red: #e74c3c;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Karla", sans-serif;
+  font-size: 1.5rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Rubik", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--main-dark);
+}
+
+img {
+  display: block;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+/* ------------------
+  Button Styling 
+-------------------*/
+
+/* ------------------
+   Main Page Styling 
+-------------------*/
+
+#main {
+  display: flex;
+}
+
+/* ------------------
+   Sidebar Styling 
+-------------------*/
+
+#sidebar{
+  border: 1px solid var(--main-dark);
+  width: 20vw;
+}
+
+/* ------------------
+  Tile Styling 
+-------------------*/
+.blog-tiles {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 80vw;
+  justify-items: center;
+}
+.blog-tile {
   display: flex;
   flex-direction: column;
+  width: 300px;
+  margin: 2em 0;
+  border: 1px solid black;
+}
+
+.tile-header {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.fa-heart {
+  color: var(--main-red);
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fa-heart:hover {
+  cursor: pointer;
 }
