@@ -29,6 +29,7 @@ export default class ProductPage extends Component {
                 <p>{blogTheme.about}</p>
               </div>
             </div>
+            
           );
         }}
       </BlogContext.Consumer>

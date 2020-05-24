@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default class BlogThemeTile extends Component {
   static contextType = BlogContext;
-  
+
   //toggles the favorited icon for themes
   handleToggle(theme) {
     const favorited = !theme.favorited;
@@ -80,8 +80,9 @@ export default class BlogThemeTile extends Component {
                 renderedThemes = filteredThemes;
             }
           }
+
           // render the themes to the UI after filtering and sorting
-          return renderedThemes.map((theme) => (
+          let renderedGrid = renderedThemes.map((theme) => (
             // renders list of tiles based on available themes
             <li className="blog-tile" key={theme.id}>
               <div className="tile-header">
@@ -111,6 +112,19 @@ export default class BlogThemeTile extends Component {
               </Link>
             </li>
           ));
+          return (
+            <>
+            {/* checks if there are any themes to show, otherwise lets
+            the user know there aren't any  */}
+              {manualFilter && renderedThemes.length === 0 ? (
+                <h3 className="empty-theme-error">
+                  Sorry, there are no themes for that industry...yet.
+                </h3>
+              ) : (
+                renderedGrid
+              )}
+            </>
+          );
         }}
       </BlogContext.Consumer>
     );
