@@ -14,7 +14,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Karla", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -52,22 +52,71 @@ button:hover {
 /* ------------------
   Button Styling 
 -------------------*/
+.theme-btn {
+  background-color: var(--main-dark);
+  color: var(--main-light);
+  padding: 0.5em;
+  border-radius: 15px;
+  border: 1px solid var(--main-dark);
+}
 
+.theme-btn:hover,
+.theme-btn:focus {
+  background-color: var(--main-light);
+  color: var(--main-dark);
+  border: 1px solid var(--main-dark);
+  font-weight: 600;
+}
+
+.back-btn {
+  margin-left: 2em;
+  background-color: var(--main-dark);
+  padding: .5em;
+  border-radius: 15px;
+  color: var(--main-light);
+  font-weight: 600;
+}
+.back-btn i{
+  color: var(--main-light);
+  padding-right: 3px;
+}
+/* ------------------
+  Navbar Styling 
+-------------------*/
+
+#header {
+  background-color: #1a1a1a;
+  height: 80px;
+  padding: 0.6em;
+  width: 100vw;
+}
+h1 {
+  color: var(--main-light);
+}
 /* ------------------
    Main Page Styling 
 -------------------*/
+#title {
+  margin-left: 1em;
+}
 
 #main {
   display: flex;
+  padding-top: 2em;
+  justify-content: space-evenly;
 }
 
 /* ------------------
    Sidebar Styling 
 -------------------*/
 
-#sidebar{
-  border: 1px solid var(--main-dark);
-  width: 20vw;
+#sidebar {
+  margin-top: 3em;
+}
+#categories,
+#filter-input {
+  font-size: 1.2rem;
+  padding: 0.3em;
 }
 
 /* ------------------
@@ -75,22 +124,27 @@ button:hover {
 -------------------*/
 .blog-tiles {
   display: grid;
-  grid-template-columns: auto auto auto;
-  width: 80vw;
+  grid-template-columns: repeat(3, minmax(320px, 1fr));
   justify-items: center;
+  grid-gap: 1.1em;
 }
 .blog-tile {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  margin: 2em 0;
+  background-color: var(--main-light);
+  width: 12em;
+  margin: 1.2em 0;
   border: 1px solid black;
+  padding: 1em 2em 2em 2em;
+  text-align: center;
+  border-radius: 15px;
 }
 
 .tile-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 0 0.5em 0;
 }
 
 .fa-heart {
@@ -98,4 +152,59 @@ button:hover {
 }
 .fa-heart:hover {
   cursor: pointer;
+}
+
+/* ------------------
+   Product Styling 
+-------------------*/
+
+.theme-info {
+  width: 80vw;
+  display: flex;
+  margin: 0 5em;
+  align-items: center;
+  border-radius: 15px;
+  padding: 0 3em;
+}
+
+.theme-about {
+  margin: 0 2em;
+  color: var(--main-dark);
+}
+
+/* ------------------
+   Mobile Styling 
+-------------------*/
+@media screen and (max-width: 1250px) {
+  #main {
+    flex-direction: column-reverse;
+  }
+  #sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0;
+  }
+  .tiles-title {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .blog-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .theme-info {
+    flex-direction: column;
+    margin: 0;
+    justify-content: center;
+  }
+  .theme-about {
+    margin: 0;
+  }
+  .blog-tile {
+    margin: 1em;
+  }
 }

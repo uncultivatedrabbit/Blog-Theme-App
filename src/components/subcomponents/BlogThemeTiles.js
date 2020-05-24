@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BlogContext } from "../../BlogContext";
+import { Link } from "react-router-dom";
 
 export default class BlogThemeTile extends Component {
   static contextType = BlogContext;
@@ -12,7 +13,7 @@ export default class BlogThemeTile extends Component {
     };
     // const url = "http://localhost:8000/api/blogThemes";
     // const headers = {
-    //   method: "POST",
+    //   method: "PUT",
     //   body: JSON.stringify(updatedTheme),
     //   header: {
     //     "content-type": "application/json",
@@ -20,9 +21,9 @@ export default class BlogThemeTile extends Component {
     // };
     // fetch(url, headers)
     //   .then((res) => res.text())
-      // .then(() => 
-      this.context.toggleFavorite(updatedTheme)
-      // );
+    // .then(() =>
+    this.context.toggleFavorite(updatedTheme);
+    // );
   }
   renderBlogTiles = () => {
     return (
@@ -32,7 +33,9 @@ export default class BlogThemeTile extends Component {
             // renders list of tiles based on available themes
             <li className="blog-tile" key={theme.id}>
               <div className="tile-header">
-                {theme.name ? theme.name.charAt(0).toUpperCase() + theme.name.slice(1) : ""}
+                {theme.name
+                  ? theme.name.charAt(0).toUpperCase() + theme.name.slice(1)
+                  : ""}
                 {/* // checks if the theme is favorited or not  */}
                 {theme.favorited ? (
                   <i
@@ -44,12 +47,16 @@ export default class BlogThemeTile extends Component {
                     className="far fa-heart"></i>
                 )}
               </div>
-              <img src={theme.imageUrl} />
+              <img src={`${theme.imageUrl}/200/300`} alt={theme.name} />
               <p>
                 Style:{" "}
-                {theme.type? theme.type.charAt(0).toUpperCase() + theme.type.slice(1) : ""}
+                {theme.type
+                  ? theme.type.charAt(0).toUpperCase() + theme.type.slice(1)
+                  : ""}
               </p>
-              <button>Learn More</button>
+              <Link className="theme-btn" to={`/theme/${theme.id}`}>
+                Learn More
+              </Link>
             </li>
           ))
         }

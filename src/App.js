@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "./components/Navbar";
 import MainPage from "./components/MainPage";
-import Footer from "./components/Footer";
 import "./App.css";
 import { BlogContext } from "./BlogContext";
 
@@ -80,7 +79,6 @@ class App extends Component {
           ) : (
             <MainPage />
           )}
-          <Footer />
         </div>
       </BlogContext.Provider>
     );
