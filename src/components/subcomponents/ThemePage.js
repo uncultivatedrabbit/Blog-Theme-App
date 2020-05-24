@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BlogContext } from "../BlogContext";
+import { BlogContext } from "../../lib/BlogContext";
 import { Link } from "react-router-dom";
 
 export default class ProductPage extends Component {
@@ -16,8 +16,12 @@ export default class ProductPage extends Component {
             <div className="theme-info">
               <div className="theme-heading">
                 <h2>{blogTheme.name}</h2>
+                {blogTheme.favorited ? <i className="fas fa-heart"></i> : ""}
                 <img
-                  src={`${blogTheme.imageUrl}/400/500`}
+                  className="big-image"
+                  src={
+                    blogTheme.imageUrl ? `${blogTheme.imageUrl}/400/500` : ""
+                  }
                   alt={blogTheme.name}
                 />
               </div>

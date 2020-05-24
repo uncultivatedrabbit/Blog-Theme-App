@@ -2,35 +2,39 @@ import React, { Component } from "react";
 import Navbar from "./components/Navbar";
 import MainPage from "./components/MainPage";
 import "./App.css";
-import { BlogContext } from "./BlogContext";
+import { BlogContext } from "./lib/BlogContext";
+import update from "react-addons-update";
 
 class App extends Component {
   state = {
-    users: [],
+    user: "",
     blogThemes: [],
     errorMessage: "",
+    userFilterCategory: "",
+    userSortType: "",
+    manualFilter: "",
   };
 
+  //fetch the user and themes from the database
   getDataFromApi = () => {
-    const usersUrl = "http://localhost:8000/api/users";
     const blogThemesUrl = "http://localhost:8000/api/blogThemes";
-
-    Promise.all([fetch(usersUrl), fetch(blogThemesUrl)])
-      .then(async ([usersRes, blogThemesRes]) => {
-        if (!usersRes.ok) {
-          const e = await usersRes.json();
-          return await Promise.reject(e);
-        }
+    const userUrl = "http://localhost:8000/api/user";
+    Promise.all([fetch(blogThemesUrl), fetch(userUrl)])
+      .then(async ([blogThemesRes, userRes]) => {
         if (!blogThemesRes.ok) {
           const e_1 = await blogThemesRes.json();
           return await Promise.reject(e_1);
         }
-        return Promise.all([usersRes.json(), blogThemesRes.json()]);
+        if (!userRes.ok) {
+          const e_2 = await userRes.json();
+          return await Promise.reject(e_2);
+        }
+        return Promise.all([blogThemesRes.json(), userRes.json()]);
       })
-      .then(([users, blogThemes]) => {
+      .then(([blogThemes, user]) => {
         // update state with the folders and notes
         // from the database
-        this.setState({ users, blogThemes });
+        this.setState({ blogThemes, user });
       })
       .catch((err) =>
         this.setState({
@@ -43,28 +47,62 @@ class App extends Component {
     this.getDataFromApi();
   }
 
-  handleAddUser = () => {};
+  // handles the filter category dropdown
+  handleUserFilter = (category) => {
+    this.setState({
+      userFilterCategory: category,
+    });
+  };
+  // handles the sort methods the user can use
+  // e.g. alphabetic or favorite first
+  handleUserSort = (sortType) => {
+    this.setState({
+      userSortType: sortType,
+    });
+  };
 
-  handleDeleteUser = () => {};
+  // handles real time filtering of themes
+  handleRealTimeFilter = (query) => {
+    this.setState({
+      manualFilter: query,
+    });
+  };
 
-  // handleToggleFavorite = (toggledTheme) => {
-  //   const toggledThemeIndex = this.state.blogThemes.findIndex(theme => theme.id === toggledTheme.id)
-  //   this.setState({
-  //     ...this.state,
-  //     blogThemes: [
-        
-  //     ]
-  //   })
-  // };
+  //handles toggling the favorited icon to fav and un-fav themes
+  handleToggleFavorite = (toggledTheme) => {
+    const toggledThemeIndex = this.state.blogThemes.findIndex(
+      (theme) => theme.id === toggledTheme.id
+    );
+    // replaces the specific theme in state with the updated theme with toggled favorite
+    this.setState(
+      update(this.state, {
+        blogThemes: {
+          [toggledThemeIndex]: {
+            $set: toggledTheme,
+          },
+        },
+      })
+    );
+  };
 
   render() {
-    const { users, blogThemes } = this.state;
-    const value = {
-      users,
+    const {
+      user,
       blogThemes,
+      userFilterCategory,
+      userSortType,
+      manualFilter,
+    } = this.state;
+    const value = {
+      user,
+      blogThemes,
+      userFilterCategory,
+      userSortType,
+      manualFilter,
       toggleFavorite: this.handleToggleFavorite,
-      addUser: this.handleAddUser,
-      deleteUser: this.handleDeleteUser,
+      userFilter: this.handleUserFilter,
+      sortBy: this.handleUserSort,
+      realTimeFilter: this.handleRealTimeFilter,
     };
     return (
       <BlogContext.Provider value={value}>
@@ -72,9 +110,7 @@ class App extends Component {
           <Navbar />
           {this.state.errorMessage ? (
             <>
-              <h2 className="error-msg">
-                {this.state.errorMessage}
-              </h2>
+              <h2 className="error-msg">{this.state.errorMessage}</h2>
             </>
           ) : (
             <MainPage />

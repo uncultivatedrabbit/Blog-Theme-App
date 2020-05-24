@@ -28,7 +28,7 @@ export default class ErrorMessage extends Component {
     if (this.state.error) {
       return (
         <main className="error-message">
-          <h1>Something went wrong.</h1>
+          <h2>Something went wrong.</h2>
           {this.state.count > 0 ? (
             <p>OH NO! THIS APP WILL SELF-DESTRUCT IN {this.state.count} </p>
           ) : (

@@ -5,47 +5,63 @@ const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
 const bodyParser = require("body-parser");
-const ProductsData = require("../ProductsData");
 const app = express();
-// const Data = require("./models/ProductsData");
-
 const morganOptions = NODE_ENV === "production" ? "tiny" : "common";
-
-const mongoose = require("mongoose");
-require("dotenv").config();
-
-mongoose.connect(process.env.DATABASE_URL, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
-const db = mongoose.connection;
-db.on("error", (error) => console.error(error));
-db.once("open", () => {
-  console.log("connected to database " + db.name)
-});
+const MongoClient = require("mongodb").MongoClient;
 
 app.use(morgan(morganOptions));
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/api/blogThemes", async (req, res) => {
-  
-  const blogThemes = ProductsData.blogThemes;
-  res.json(blogThemes);
-  // const test = await Data.find()
-  // console.log(test)
-  // res.send(test)
+const url = process.env.DATABASE_URL;
+let dbase;
+MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+  if (err) throw err;
+  dbase = db.db("ProductsDatabase");
 });
 
+//get request
+app.get("/api/blogThemes", (req, res) => {
+  const blogData = dbase
+    .collection("ProductsData")
+    .find()
+    .toArray((err, results) => {
+      if (err) throw err;
+      res.send(results[0].blogThemes);
+    });
+});
+
+// get user info
+app.get("/api/user", (req, res) => {
+  const userData = dbase
+    .collection("ProductsData")
+    .find()
+    .toArray((err, results) => {
+      if (err) throw err;
+      res.send(results[0].user);
+    });
+});
+
+// put requests
 app.put("/api/blogThemes", (req, res) => {
-  console.log(req.body);
-  res.send("POST request to the homepage");
-});
-
-app.get("/api/users", (req, res) => {
-  const blogThemes = ProductsData.users;
-  res.json(blogThemes);
+  dbase
+    .collection("ProductsData")
+    .find(
+      { "blogThemes.type": "author" },
+      { "blogThemes.type": "author" },
+      (err, response) => {
+        console.log(response);
+      }
+    );
+  // const blogData = dbase
+  // .collection("ProductsData")
+  // .updateOne({ id: req.body.id },{ $set: { favorited: req.body.favorited }, function(err,res){
+  //   if (err) throw err;
+  //   console.log("success")
+  // } }
+  // )
+  res.send("updated");
 });
 
 app.use(function errorHandler(error, req, res, next) {
