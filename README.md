@@ -25,6 +25,14 @@ npm start
 
 Open [http://localhost:3000](http://localhost:3000) to view the project in the browser.
 
+## Built With
+
+* React.JS
+* Node.JS
+* Express
+* MongoDB
+* CSS
+
 ## Blog Workshop Screenshots
 
 ### Full Screen View:
@@ -34,12 +42,3 @@ Open [http://localhost:3000](http://localhost:3000) to view the project in the b
 ### Mobile Screen View:
 
 ![Mobile View](public/images/mobile1.png)
-
-
-## Built With
-
-* React.JS
-* Node.JS
-* Express
-* MongoDB
-* CSS
