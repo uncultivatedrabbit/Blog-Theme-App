@@ -247,6 +247,7 @@ button:hover {
   color: var(--main-dark);
 }
 
+
 /* ------------------
    Responsive Styling 
 -------------------*/
@@ -315,8 +316,15 @@ button:hover {
   }
 }
 @media screen and (max-width: 700px) {
+  #title{
+    font-size: 1.6rem;
+  }
   #sidebar {
     flex-direction: column;
+    text-align: center;
+  }
+  .pill{
+    margin: auto;
   }
   .theme-heading h2,
   .tiles-title,

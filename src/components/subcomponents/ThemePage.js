@@ -3,14 +3,15 @@ import { BlogContext } from "../../lib/BlogContext";
 import { Link } from "react-router-dom";
 
 export default class ProductPage extends Component {
-  renderThemeInfo = (params = {}) => {
+  renderThemeInfo = (params) => {
     return (
       <BlogContext.Consumer>
         {(context) => {
           const { blogThemes } = context;
-          const blogTheme = blogThemes.find((theme) => {
-            return theme.id === params.id;
-          });
+          const blogTheme =
+            blogThemes.find((theme) => {
+              return theme.id === params.id;
+            }) || {};
           return (
             <div className="theme-info">
               <div className="theme-heading">
@@ -25,6 +26,14 @@ export default class ProductPage extends Component {
                 />
               </div>
               <div className="theme-about">
+                <h3>
+                  Style:
+                  {blogTheme.type
+                    ? ` ${blogTheme.type
+                        .charAt(0)
+                        .toUpperCase()}${blogTheme.type.slice(1)}`
+                    : ""}
+                </h3>
                 <p>{blogTheme.about}</p>
               </div>
             </div>

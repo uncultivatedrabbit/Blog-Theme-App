@@ -5,23 +5,32 @@ Looking to reimagine your website? Browse through these theme options, you can s
 ## Available Scripts
 
 To run the application, first connect to the database. <br/>
-To connect with the database change directories into the "blog-server": [cd blog-server/]<br/>
-From the "blog-server" run the script "npm start" to begin the connection.<br/>
-Then change directories to the root folder (Blog Workshop App) and run "npm start". <br/>
+
+To connect with the database change directories into the **blog-server**: 
+```
+cd blog-server
+```
+
+From inside the **blog-server** run the script:
+```
+npm start
+```
+You should now be connected to the database and necessary API endpoints.<br/>
+
+Then change directories to the root folder **Blog-Workshop-App** and run
+
+```
+npm start
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view the project in the browser.
 
+## Blog Workshop Screenshots
 
-### `npm test`
+### Full Screen View:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Fullscreen view](/images/fullscreen.png)
 
-### `npm run build`
+### Mobile Screen View:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Mobile View](/images/mobile1.png)
