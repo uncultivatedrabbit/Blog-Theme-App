@@ -29,7 +29,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the project in the b
 
 ### Full Screen View:
 
-![Fullscreen view](/images/fullscreen.png)
+![Fullscreen view](public/images/fullscreen.png)
 
 ### Mobile Screen View:
 
