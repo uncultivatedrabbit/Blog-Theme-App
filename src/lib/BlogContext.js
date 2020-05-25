@@ -2,7 +2,10 @@ import React from "react";
 
 export const BlogContext = React.createContext({
   blogThemes: [],
-  user: '',
+  user: "",
+  userFilterCategory: "",
+  userSortType: "",
+  manualFilter: "",
   toggleFavorite: () => {},
   userFilter: () => {},
   sortBy: () => {},

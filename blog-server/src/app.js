@@ -9,61 +9,69 @@ const app = express();
 const morganOptions = NODE_ENV === "production" ? "tiny" : "common";
 const MongoClient = require("mongodb").MongoClient;
 
+// app middleware
 app.use(morgan(morganOptions));
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
 
 const url = process.env.DATABASE_URL;
-let dbase;
-MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
-  if (err) throw err;
-  dbase = db.db("ProductsDatabase");
+
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
 });
 
 //get request
 app.get("/api/blogThemes", (req, res) => {
-  const blogData = dbase
-    .collection("ProductsData")
-    .find()
-    .toArray((err, results) => {
-      if (err) throw err;
-      res.send(results[0].blogThemes);
-    });
+  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+    if (err) throw err;
+    const dbase = db.db("ProductsDatabase");
+    dbase
+      .collection("ProductsData")
+      .find()
+      .toArray((err, results) => {
+        if (err) throw err;
+        res.send(results[0].blogThemes);
+        db.close();
+      });
+  });
 });
 
 // get user info
 app.get("/api/user", (req, res) => {
-  const userData = dbase
-    .collection("ProductsData")
-    .find()
-    .toArray((err, results) => {
-      if (err) throw err;
-      res.send(results[0].user);
-    });
+  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+    if (err) throw err;
+    const dbase = db.db("ProductsDatabase");
+    dbase
+      .collection("ProductsData")
+      .find()
+      .toArray((err, results) => {
+        if (err) throw err;
+        res.send(results[0].user);
+        db.close();
+      });
+  });
 });
 
 // put requests
 app.put("/api/blogThemes", (req, res) => {
-  dbase
-    .collection("ProductsData")
-    .find(
-      { "blogThemes.type": "author" },
-      { "blogThemes.type": "author" },
-      (err, response) => {
-        console.log(response);
-      }
-    );
-  // const blogData = dbase
-  // .collection("ProductsData")
-  // .updateOne({ id: req.body.id },{ $set: { favorited: req.body.favorited }, function(err,res){
-  //   if (err) throw err;
-  //   console.log("success")
-  // } }
-  // )
-  res.send("updated");
+  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+    if (err) throw err;
+    const dbase = db.db("ProductsDatabase");
+    dbase
+      .collection("ProductsData")
+      .findOneAndUpdate(
+        { "blogThemes.id": req.body.id },
+        { $set: { "blogThemes.$.favorited": req.body.favorited } },
+        (err, response) => {
+          if (err) console.log(err);
+          res.send("updated");
+          db.close();
+        }
+      );
+  });
 });
-
+// handles errors
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === "production") {

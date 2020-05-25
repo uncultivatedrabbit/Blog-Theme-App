@@ -56,40 +56,42 @@ export default class BlogThemeTile extends Component {
             }
             // switch statement to account for different ways user wants to sort the data
             switch (userSortType) {
-              case "alpha":
+              case "alpha": {
                 renderedThemes = filteredThemes.sort((a, b) => {
                   const nameA = a.name.toLowerCase();
                   const nameB = b.name.toLowerCase();
                   return nameA > nameB ? 1 : -1;
                 });
                 break;
-              case "omega":
+              }
+              case "omega": {
                 renderedThemes = filteredThemes.sort((a, b) => {
                   const nameA = a.name.toLowerCase();
                   const nameB = b.name.toLowerCase();
                   return nameA < nameB ? 1 : -1;
                 });
                 break;
-              case "favorited":
+              }
+              case "favorited": {
                 renderedThemes = filteredThemes.sort((a, b) => {
                   const isFavoritedA = a.favorited;
                   return isFavoritedA ? -1 : 1;
                 });
                 break;
-              default:
+              }
+              default: {
                 renderedThemes = filteredThemes;
+              }
             }
           }
 
           // render the themes to the UI after filtering and sorting
-          let renderedGrid = renderedThemes.map((theme) => (
+          let renderedGrid = renderedThemes.map((theme = {}) => (
             // renders list of tiles based on available themes
             <li className="blog-tile" key={theme.id}>
               <div className="tile-header">
-                {theme.name
-                  ? theme.name.charAt(0).toUpperCase() + theme.name.slice(1)
-                  : ""}
-                {/* // checks if the theme is favorited or not  */}
+                {theme.name.charAt(0).toUpperCase() + theme.name.slice(1)}
+                {/* // checks if the theme is favorited or not for the UI */}
                 {theme.favorited ? (
                   <i
                     onClick={() => this.handleToggle(theme)}
@@ -101,11 +103,10 @@ export default class BlogThemeTile extends Component {
                 )}
               </div>
               <img src={`${theme.imageUrl}/200/300`} alt={theme.name} />
+              {/* <img src={`${theme.imageUrl}/200/300`} alt={theme.name} /> */}
               <p>
                 Style:{" "}
-                {theme.type
-                  ? theme.type.charAt(0).toUpperCase() + theme.type.slice(1)
-                  : ""}
+                {theme.type.charAt(0).toUpperCase() + theme.type.slice(1)}
               </p>
               <Link className="theme-btn" to={`/theme/${theme.id}`}>
                 Learn More
@@ -114,7 +115,7 @@ export default class BlogThemeTile extends Component {
           ));
           return (
             <>
-            {/* checks if there are any themes to show, otherwise lets
+              {/* checks if there are any themes to show, otherwise lets
             the user know there aren't any  */}
               {manualFilter && renderedThemes.length === 0 ? (
                 <h3 className="empty-theme-error">
