@@ -33,4 +33,4 @@ Open [http://localhost:3000](http://localhost:3000) to view the project in the b
 
 ### Mobile Screen View:
 
-![Mobile View](/images/mobile1.png)
+![Mobile View](public/images/mobile1.png)
