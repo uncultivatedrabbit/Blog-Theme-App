@@ -19,11 +19,13 @@ export default class HomePage extends Component {
   render() {
     return (
       <div>
-        <hr className="mobile-break"/>
+        <hr className="mobile-break" />
         <div className="tiles-header-container">
           <h2 className="tiles-title">Available Themes:</h2>
           <form id="sortByForm">
-            <label className="label" htmlFor="sortChoices">Sort:</label>
+            <label className="label" htmlFor="sortChoices">
+              Sort:
+            </label>
             <select
               onChange={(e) => this.handleUserSort(e)}
               name="sortChoices"
@@ -35,6 +37,7 @@ export default class HomePage extends Component {
             </select>
           </form>
         </div>
+        <hr />
         <ul className="blog-tiles">
           <BlogThemeTiles />
         </ul>
