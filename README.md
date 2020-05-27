@@ -10,7 +10,13 @@ To start the backend
 cd blog-server
 ```
 
-Modify your .env DATABASE_URL value to the one that was provided
+Create a .env file then modify it to include the DATABASE_URL value with the one that was provided. 
+
+Make sure to install the necessary dependencies by running
+
+```
+npm install
+```
 
 From inside the **blog-server** run the script:
 
@@ -21,6 +27,12 @@ npm start
 Server is now listening on the provided port, defaulting to 8000
 
 Then change directories to the ../client. Modify the src/config.js file to your backend url and then run
+
+```
+npm install
+```
+
+Once the necessary dependencies have been installed run 
 
 ```
 npm start
@@ -42,8 +54,8 @@ Open [http://localhost:3000](http://localhost:3000) to view the project in the b
 
 ### Full Screen View:
 
-![Fullscreen view](public/images/fullscreen.png)
+![Fullscreen view](client/public/images/fullscreen.png)
 
 ### Mobile Screen View:
 
-![Mobile View](public/images/mobile1.png)
+![Mobile View](client/public/images/mobile1.png)
