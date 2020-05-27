@@ -4,6 +4,7 @@ import MainPage from "./components/MainPage";
 import "./App.css";
 import { BlogContext } from "./lib/BlogContext";
 import update from "react-addons-update";
+import { API_ENDPOINT } from "./config";
 
 class App extends Component {
   state = {
@@ -17,8 +18,8 @@ class App extends Component {
 
   //fetch the user and themes from the database
   getDataFromApi = () => {
-    const blogThemesUrl = "http://localhost:8000/api/blogThemes";
-    const userUrl = "http://localhost:8000/api/user";
+    const blogThemesUrl = `${API_ENDPOINT}/api/blogThemes`;
+    const userUrl = `${API_ENDPOINT}/api/user`;
     Promise.all([fetch(blogThemesUrl), fetch(userUrl)])
       .then(async ([blogThemesRes, userRes]) => {
         if (!blogThemesRes.ok) {

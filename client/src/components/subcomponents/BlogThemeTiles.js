@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BlogContext } from "../../lib/BlogContext";
 import { Link } from "react-router-dom";
+import { API_ENDPOINT } from "../../config";
 
 export default class BlogThemeTile extends Component {
   static contextType = BlogContext;
@@ -13,7 +14,7 @@ export default class BlogThemeTile extends Component {
       favorited: favorited,
     };
     // update the theme in the database to reflect favorite/unfavorite
-    const url = "http://localhost:8000/api/blogThemes";
+    const url = `${API_ENDPOINT}/api/blogThemes`;
     const headers = {
       method: "PUT",
       headers: {
