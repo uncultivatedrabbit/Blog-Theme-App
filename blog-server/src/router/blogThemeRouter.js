@@ -4,7 +4,7 @@ const dbService = require("../dbConnection");
 
 blogThemeRouter
   .route("/api/blogThemes")
-  .get((req, res, next) => {
+  .get((req, res) => {
     dbService.connect((err) => {
       if (err) {
         console.log("Error: ", err);
@@ -20,7 +20,7 @@ blogThemeRouter
         });
     });
   })
-  .put((req, res, next) => {
+  .patch((req, res) => {
     dbService.connect((err) => {
       if (err) {
         console.log("Error: ", err);
@@ -40,7 +40,7 @@ blogThemeRouter
     });
   });
 
-blogThemeRouter.route("/api/user").get((req, res, next) => {
+blogThemeRouter.route("/api/user").get((req, res) => {
   dbService.connect((err) => {
     if (err) {
       console.log("Error: ", err);

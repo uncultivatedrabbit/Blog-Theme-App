@@ -16,7 +16,7 @@ export default class BlogThemeTile extends Component {
     // update the theme in the database to reflect favorite/unfavorite
     const url = `${API_ENDPOINT}/api/blogThemes`;
     const headers = {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
