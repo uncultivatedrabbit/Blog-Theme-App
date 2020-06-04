@@ -104,7 +104,6 @@ export default class BlogThemeTile extends Component {
                 )}
               </div>
               <img src={`${theme.imageUrl}/200/300`} alt={theme.name} />
-              {/* <img src={`${theme.imageUrl}/200/300`} alt={theme.name} /> */}
               <p>
                 Style:{" "}
                 {theme.type.charAt(0).toUpperCase() + theme.type.slice(1)}
